@@ -45,17 +45,19 @@ class App extends Component {
   
   removeCharacter = index => {
    const { characters } = this.state
+   const id = characters[index]["id"]
+   axios.delete('http://localhost:5000/users?id=' +id)
    this.setState({
       characters: characters.filter((character, i) => {
          return i !== index
       }), 
    })
   }
+
   handleSubmit = character => {
    this.makePostCall(character).then( callResult => {
       if (callResult.status === 201) {
          this.setState({ characters: [...this.state.characters, callResult.data] });
-         console.log("Hello")
       }
    });
  }
